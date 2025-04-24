@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COURSES OFFERED - Health Club</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      background-color: #ffffff;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 2.5vmin;
+    }
+
+    /* ---------------- HEADER ---------------- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgb(255, 88, 71);
+      color: white;
+      padding: 15px 40px;
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 3px solid white;
+      margin-right: 15px;
+    }
+
+    .navbar h1 {
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+    }
+
+    .navbar ul.links {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    .navbar ul.links li a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .navbar ul.links li a:hover {
+      background-color: white;
+      color: rgb(255, 88, 71);
+    }
+
+    /* ---------------- CONTENT ---------------- */
+    .background img {
+      width: 100%;
+      height: auto;
+    }
+
+    .health {
+      text-align: center;
+      font-size: 2.2rem;
+      margin: 30px 0;
+    }
+
+    .htable {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 0 50px;
+      flex-wrap: wrap;
+    }
+
+    .htable li {
+      list-style: none;
+      flex: 1 1 400px;
+    }
+
+    .htable p {
+      font-size: 1rem;
+      padding: 10px;
+      text-align: justify;
+    }
+
+    .table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+
+    .table th,
+    .table td {
+      border: 1px solid #ddd;
+      padding: 10px 15px;
+      text-align: center;
+    }
+
+    .table th {
+      background-color: #f4f4f4;
+    }
+
+    /* ---------------- FOOTER ---------------- */
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      background-color: rgb(255, 88, 71);
+      color: white;
+      padding: 30px 50px;
+    }
+
+    .footerleft {
+      flex: 1 1 300px;
+      font-size: 0.9rem;
+    }
+
+    .footerright {
+      flex: 1 1 300px;
+      font-size: 0.9rem;
+    }
+
+    .footerright h2 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .footerright p {
+      line-height: 1.6;
+    }
+
+    @media screen and (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .navbar ul.links {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .htable {
+        flex-direction: column;
+      }
+
+      .bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="./images/phoenix.jpg" alt="Phoenix Club Logo">
+      <h1>Phoenix Club</h1>
+    </div>
+
+    <ul class="links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses Offered</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="login.html">Members</a></li>
+      <li><a href="Registration.html">Registration</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO / BACKGROUND IMAGE -->
+  <div class="background">
+    <img src="./images/swimbackground.jpg" alt="Health Club Image">
+  </div>
+
+  
+  <!-- COURSE DETAILS -->
+  <h1 class="health">Swimming Pool</h1>
+  <ul class="htable">
+    <li>
+      <p>
+        The Health Club provides a comprehensive environment for members to achieve their fitness goals. Featuring
+        modern equipment and experienced trainers, it offers both morning and evening batches suitable for all levels.
+      </p>
+    </li>
+    <li>
+      <table class="table">
+        <tr>
+          <th></th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+        <tr>
+          <td>Morning</td>
+          <td>8-9</td>
+          <td>7-8</td>
+          <td>9-10</td>
+          <td>8-9</td>
+          <td>9-10</td>
+          <td>8-9</td>
+        </tr>
+        <tr>
+          <td>Evening</td>
+          <td>8-9</td>
+          <td>7-8</td>
+          <td>9-10</td>
+          <td>8-9</td>
+          <td>9-10</td>
+          <td>8-9</td>
+        </tr>
+      </table>
+    </li>
+  </ul>
+
+  <!-- FOOTER -->
+  <footer class="bottom">
+    <div class="footerleft">
+      <p>&copy; 2023 Phoenix Club. All Rights Reserved.</p>
+    </div>
+    <div class="footerright">
+      <h2>Contact Information</h2>
+      <p>
+        Address: 123 Main Street, Calcutta 700032, West Bengal <br />
+        Phone: (123) 456-7890<br />
+        Email: info@phoenixrecreationalclub.com
+      </p>
+    </div>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Courses Offered - Phoenix Club</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      background-color: #ffffff;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 2.5vmin;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ae2114;
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      color: white;
+      flex-wrap: wrap;
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .logo img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      border: 3px solid white;
+      margin-right: 10px;
+    }
+
+    .navbar h1 {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    .navbar .links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 10px;
+    }
+
+    .navbar .links a,
+    .navbar .links button {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      text-transform: uppercase;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    .navbar .links a:hover,
+    .navbar .links button:hover {
+      background-color: white;
+      color: #ae2114;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    #search {
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 2px solid #ddd;
+      font-size: 1rem;
+      width: 250px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 120px 30px 50px;
+    }
+
+    .card {
+      background-color: #f1f1f1;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #ae2114;
+    }
+
+    .card p {
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .card a {
+      display: inline-block;
+      background-color: #ae2114;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .card a:hover {
+      background-color: #921b10;
+    }
+
+    .footer {
+      background-color: #ae2114;
+      color: white;
+      padding: 1rem;
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    .bottom {
+      background-color: #3e0905;
+      text-align: center;
+      color: #fff;
+    }
+
+    @media screen and (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar .links {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .container {
+        padding: 120px 15px 50px;
+      }
+
+      #search {
+        width: 100%;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="./images/phoenix.jpg" alt="Phoenix Club Logo" />
+      <h1>Phoenix Club</h1>
+    </div>
+    <ul class="links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="registration.html">Registration</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="login.html">Members</a></li>
+      <li><button id="logoutBtn" style="display: none;">Logout</button></li>
+    </ul>
+    <input type="text" id="search" placeholder="Search Courses" oninput="searchCourses()">
+  </nav>
+
+  <!-- COURSE CARDS -->
+  <div class="container" id="coursesContainer">
+    <!-- Repeatable course card component -->
+    <div class="card" data-name="Health Club">
+      <img src="./images/health-club.jpg" alt="Health Club">
+      <div class="card-content">
+        <h3>Health Club</h3>
+        <p>Enjoy a range of fitness activities with state-of-the-art gym equipment and wellness services.</p>
+        <a href="healthClub.html">Details</a>
+      </div>
+    </div>
+
+    <div class="card" data-name="Swimming Pool">
+      <img src="./images/swimming-pool.jpg" alt="Swimming Pool">
+      <div class="card-content">
+        <h3>Swimming Pool</h3>
+        <p>Our luxurious pool offers space for relaxation and training, suitable for all ages.</p>
+        <a href="swimmingPool.html">Details</a>
+      </div>
+    </div>
+
+    <div class="card" data-name="Billiard">
+      <img src="./images/billiard.jpg" alt="Billiard">
+      <div class="card-content">
+        <h3>Billiard</h3>
+        <p>Well-equipped tables and a comfortable lounge make it perfect for all players.</p>
+        <a href="billiard.html">Details</a>
+      </div>
+    </div>
+
+    <div class="card" data-name="Tennis">
+      <img src="./images/tennis.jpg" alt="Tennis">
+      <div class="card-content">
+        <h3>Tennis</h3>
+        <p>Enjoy professional-level courts and coaching programs suited for all ages.</p>
+        <a href="tennis.html">Details</a>
+      </div>
+    </div>
+
+    <div class="card" data-name="Card Room">
+      <img src="./images/card-room.jpg" alt="Card Room">
+      <div class="card-content">
+        <h3>Card Room</h3>
+        <p>Perfect for games like poker, bridge, and rummy in a calm environment.</p>
+        <a href="cardRoom.html">Details</a>
+      </div>
+    </div>
+
+    <div class="card" data-name="Golf">
+      <img src="./images/golf2.jpg" alt="Golf">
+      <div class="card-content">
+        <h3>Golf</h3>
+        <p>Enhance your skills at our scenic driving range and putting greens.</p>
+        <a href="golf.html">Details</a>
+      </div>
+    </div>
+
+    <div class="card" data-name="Air Rifle Shooting">
+      <img src="./images/airrifleshoot.jpg" alt="Air Rifle Shooting">
+      <div class="card-content">
+        <h3>Air Rifle Shooting</h3>
+        <p>Test your accuracy and focus at our modern shooting range for all levels.</p>
+        <a href="airRifle.html">Details</a>
+      </div>
+    </div>
+
+    <div class="card" data-name="Basketball">
+      <img src="./images/basketball.jpg" alt="Basketball">
+      <div class="card-content">
+        <h3>Basketball</h3>
+        <p>High-energy fun with full-sized courts for friendly or competitive play.</p>
+        <a href="basketball.html">Details</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footercontent">
+      <h2>Contact Information</h2>
+      <p>
+        Address: 123 Main Street, Calcutta 700032, West Bengal<br>
+        Phone: (123) 456-7890<br>
+        Email: info@phoenixrecreationalclub.com
+      </p>
+    </div>
+  </footer>
+
+  <div class="bottom">
+    <p>&copy; 2023 Phoenix Club. All rights reserved.</p>
+  </div>
+
+  <!-- SCRIPT -->
+ <script>
+   
+    // Search filter
+    function searchCourses() {
+      const query = document.getElementById('search').value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        card.style.display = name.includes(query) ? '' : 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>

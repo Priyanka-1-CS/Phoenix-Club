@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phoenix Club</title>
+
+  <style>
+    /* === GLOBAL RESET === */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1rem;
+      background-color: #fff;
+      color: #333;
+    }
+
+    /* === NAVBAR === */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ae2114;
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      color: white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .logo img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      border: 3px solid rgb(236, 200, 20);
+      margin-right: 10px;
+    }
+
+    .navbar h1 {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: rgb(236, 200, 20);
+    }
+
+    .navbar .links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .navbar .links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+      text-transform: uppercase;
+    }
+
+    .navbar .links a:hover {
+      background-color: white;
+      color: #ff5747;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    /* === HERO SLIDESHOW SECTION === */
+    .hero {
+      position: relative;
+      height: 90vh;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-size: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .hero .content {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 2rem;
+      border-radius: 10px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    /* === SLIDESHOW CONTROLS === */
+    .slide-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      z-index: 3;
+      padding: 0 20px;
+      transform: translateY(-50%);
+    }
+
+    .slide-btn {
+      background-color: rgba(0, 0, 0, 0.4);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+
+    .slide-btn:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    /* === SLIDE INDICATORS (DOTS) === */
+    .dots {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 3;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: white;
+    }
+
+    /* === ABOUT SECTION === */
+    .about {
+      display: flex;
+      justify-content: center;
+      padding: 3rem 1rem;
+      background-color: #f0f1b5;
+    }
+
+    .about .text {
+      background-color: #ac2d2d;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 8px 14px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      color: #ffffff;
+    }
+
+    .about h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .about p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .about h3 {
+      text-align: right;
+      font-style: italic;
+      font-weight: normal;
+    }
+
+    /* === FOOTER === */
+    .footer {
+      background-color: #ae2114;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .bottom {
+      background-color: #3e0905;
+      text-align: center;
+      color: #fff;
+      padding: 1rem;
+    }
+
+    /* === RESPONSIVE DESIGN === */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar .links {
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- === NAVBAR === -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="./images/phoenix.jpg" alt="Phoenix Club Logo" />
+      <h1>Phoenix Club</h1>
+    </div>
+    <ul class="links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="registration.html">Registration</a></li>
+      <li><a href="courses.html">Courses Offered</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="login.html">Members</a></li>
+    </ul>
+  </nav>
+
+  <!-- === HERO SECTION WITH SLIDESHOW === -->
+  <section class="hero">
+    <!-- Background slides -->
+    <div class="slide active" style="background-image: url('./images/Club.jpg');"></div>
+    <div class="slide" style="background-image: url('./images/library.jpg');"></div>
+    <div class="slide" style="background-image: url('./images/banquet.jpg');"></div>
+
+    <!-- Centered hero content -->
+    <div class="content">
+      <h1>Welcome to Phoenix Club</h1>
+      <p>Your destination for enriching activities, fun, and community.</p>
+    </div>
+
+    <!-- Slideshow buttons (left/right) -->
+    <div class="slide-controls">
+      <button class="slide-btn" onclick="changeSlide(-1)">❮</button>
+      <button class="slide-btn" onclick="changeSlide(1)">❯</button>
+    </div>
+
+    <!-- Slide indicator dots -->
+    <div class="dots" id="dots"></div>
+  </section>
+
+  <!-- === ABOUT SECTION === -->
+  <section id="about" class="about">
+    <div class="text">
+      <h2>About Phoenix Club</h2>
+      <p>Founded in 1907, Phoenix Club is one of the oldest and most prestigious social clubs in Calcutta. Our goal is to provide a warm, welcoming environment where individuals of all ages can come together and enjoy various activities, build friendships, and enrich their lives.</p>
+      <p>Whether you're interested in sports, arts, fitness, or socializing, Phoenix Club offers an all-inclusive range of activities for every interest.</p>
+      <h3>- James Gomez, President</h3>
+    </div>
+  </section>
+
+  <!-- === FOOTER === -->
+  <footer class="footer">
+    <h2>Contact Information</h2>
+    <p>
+      Address: 123 Main Street, Calcutta 700032, West Bengal<br>
+      Phone: (123) 456-7890<br>
+      Email: info@phoenixrecreationalclub.com
+    </p>
+  </footer>
+
+  <div class="bottom">&copy; 2023 Phoenix Club. All rights reserved.</div>
+
+  <!-- === SLIDESHOW JAVASCRIPT === -->
+  <script>
+    // === Configuration: Set fade interval speed here (milliseconds) ===
+    const fadeSpeed = 6000;
+
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('dots');
+
+    // Create dots dynamically based on number of slides
+    slides.forEach((_, index) => {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      dot.addEventListener('click', () => goToSlide(index));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+    dots[0].classList.add('active');
+
+    function changeSlide(direction) {
+      slides[currentSlide].classList.remove('active');
+      dots[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + direction + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+
+    function goToSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      dots[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+
+    // Auto-slide based on fadeSpeed
+    setInterval(() => changeSlide(1), fadeSpeed);
+  </script>
+
+</body>
+</html>

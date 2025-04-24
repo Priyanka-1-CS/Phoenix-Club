@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registration - Phoenix Club</title>
+  <style>
+    /* Global Styles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #f4f4f4;
+      font-family: 'Courier New', Courier, monospace;
+      color: #333;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 26px;
+      font-weight: bold;
+      color: #ae2114;
+    }
+
+    .contact{
+      margin-bottom: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ae2114;
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      color: white;
+    }
+
+    .navbar .logo { display: flex; align-items: center; }
+    .navbar .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .navbar h1 { font-size: 1.6rem; font-weight: bold; }
+
+    .navbar .links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .navbar .links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .navbar .links a:hover {
+      background-color: white;
+      color: #ae2114;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    /* Form Styles */
+    form {
+      width: 100%;
+      max-width: 400px;
+      margin: 100px auto;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      font-size: 16px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #f7f7f7;
+      font-size: 14px;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="tel"]:focus,
+    textarea:focus {
+      border-color: #ae2114;
+      background-color: #e8e8e8;
+      outline: none;
+    }
+
+    .registerbtn {
+      background-color: #ae2114;
+      color: white;
+      padding: 16px 20px;
+      margin-top: 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .registerbtn:hover {
+      background-color: #ff5747;
+    }
+
+    /* Message */
+    #registrationMsg {
+      margin-top: 15px;
+      font-size: 14px;
+      color: green;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #ae2114;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .bottom {
+      background-color: #3e0905;
+      text-align: center;
+      color: #fff;
+      padding: 1rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="./images/phoenix.jpg" alt="Phoenix Club Logo" />
+      <h1>Phoenix Club</h1>
+    </div>
+    <ul class="links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="courses.html">Courses Offered</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- REGISTRATION FORM -->
+  <form id="registrationForm">
+    <h2>Register as a Member</h2>
+
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" placeholder="Enter your full name" required />
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" placeholder="Enter your email" required />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Enter your password" required />
+
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" placeholder="Enter your phone number" required />
+
+    <label for="address">Address:</label>
+    <textarea id="address" placeholder="Enter your address" required></textarea>
+
+    <input type="submit" class="registerbtn" value="Register" />
+    <p id="registrationMsg"></p>
+  </form>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <h2 class="contact">Contact Information</h2>
+    <p>
+      Address: 123 Main Street, Calcutta 700032, West Bengal<br />
+      Phone: (123) 456-7890<br />
+      Email: info@phoenixrecreationalclub.com
+    </p>
+  </footer>
+
+  <div class="bottom">
+    &copy; 2023 Phoenix Club. All rights reserved.
+  </div>
+
+  <!-- UPDATED SCRIPT -->
+  <script>
+    const registrationForm = document.getElementById('registrationForm');
+    const registrationMsg = document.getElementById('registrationMsg');
+  
+    registrationForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+  
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const password = document.getElementById('password').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+  
+      if (!name || !email || !password || !phone || !address) {
+        registrationMsg.style.color = "red";
+        registrationMsg.textContent = "Please fill all fields!";
+        return;
+      }
+  
+      const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+  
+      if (users.some(user => user.email === email)) {
+        registrationMsg.style.color = "red";
+        registrationMsg.textContent = "Email already registered.";
+        return;
+      }
+  
+      const newUser = {
+        name,
+        email,
+        password,
+        phone,
+        address,
+        verified: false
+      };
+  
+      users.push(newUser);
+      localStorage.setItem('registeredUsers', JSON.stringify(users));
+  
+      registrationMsg.style.color = "green";
+      registrationMsg.textContent = "📧 Registration successful! Sending verification email...";
+  
+      // Simulate sending verification email
+      setTimeout(() => {
+        alert(`📩 Verification email sent to ${email}. Click "OK" to simulate confirmation.`);
+  
+        const updatedUsers = users.map(user =>
+          user.email === email ? { ...user, verified: true } : user
+        );
+  
+        localStorage.setItem('registeredUsers', JSON.stringify(updatedUsers));
+  
+        // OPTIONAL: Auto-save credentials if "Remember Me" is used in login
+        const savedCredentials = JSON.parse(localStorage.getItem("savedCredentials")) || {};
+        savedCredentials[email] = password;
+        localStorage.setItem("savedCredentials", JSON.stringify(savedCredentials));
+  
+        registrationMsg.textContent = "✅ Email verified! Redirecting to login...";
+        setTimeout(() => window.location.href = "login.html", 3000);
+      }, 2000);
+    });
+  </script>
+  
+</body>
+</html>
+
+

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Members Dashboard - Phoenix Club</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #ffffff;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 2.5vmin;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ae2114;
+      padding: 1rem 2rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      color: white;
+      flex-wrap: wrap;
+    }
+    .navbar .logo { display: flex; align-items: center; }
+    .navbar .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .navbar h1 { font-size: 1.6rem; font-weight: bold; }
+    .navbar .links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .navbar .links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+    .navbar .links a:hover {
+      background-color: white;
+      color: #ae2114;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+    .dashboard {
+      margin-top: 130px;
+      text-align: center;
+      padding: 30px;
+    }
+    .card {
+      background-color: #f1f1f1;
+      border-radius: 10px;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 600px;
+      text-align: left;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .card h3 { color: #ae2114; margin-bottom: 10px; }
+    .subscribe-btn {
+      background-color: #ae2114;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .subscribe-btn:hover { background-color: #921b10; }
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 2px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1000;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    #toast.show { visibility: visible; opacity: 1; }
+    .premium-content {
+      background-color: #fffaf0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+    .premium-content h3 { color: #ae2114; }
+    .footer {
+      background-color: #ae2114;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .bottom {
+      background-color: #3e0905;
+      text-align: center;
+      color: #fff;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+
+  <script>
+    window.onload = function () {
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      const userEmail = (localStorage.getItem("userEmail") || "").toLowerCase();
+      const isAdmin = userEmail === "admin@phoenix.com";
+
+      if (!isLoggedIn || isAdmin) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      document.getElementById("userEmailDisplay").textContent = userEmail;
+
+      const users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+      const currentUser = users.find(u => u.email === userEmail);
+
+      if (!currentUser) {
+        alert("User data not found. Redirecting to login.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      if (currentUser.subscribed) {
+        document.getElementById("premiumContent").style.display = "block";
+        document.getElementById("subscribeSection").style.display = "none";
+      }
+
+      renderEvents(currentUser);
+      loadAnnouncements(); // <-- New line added here
+    };
+
+    function renderEvents(user) {
+      const list = document.getElementById("eventList");
+      list.innerHTML = "";
+
+      const events = JSON.parse(localStorage.getItem("events") || "[]");
+      const registered = user.registeredEvents || [];
+
+      events.forEach(event => {
+        const isRegistered = registered.includes(event.id);
+        const item = document.createElement("li");
+        item.innerHTML = `
+          <strong>${event.name}</strong> - ${event.date}
+          ${isRegistered
+            ? '<span style="color: green; font-weight: bold;"> (Registered)</span>'
+            : `<button onclick="registerEvent('${event.id}')">Register</button>`}
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function registerEvent(eventId) {
+      const userEmail = (localStorage.getItem("userEmail") || "").toLowerCase();
+      const users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+      const userIndex = users.findIndex(u => u.email === userEmail);
+
+      if (userIndex === -1) return;
+
+      if (!Array.isArray(users[userIndex].registeredEvents)) {
+        users[userIndex].registeredEvents = [];
+      }
+
+      if (!users[userIndex].registeredEvents.includes(eventId)) {
+        users[userIndex].registeredEvents.push(eventId);
+        showToast("✅ Registered for event!");
+      }
+
+      localStorage.setItem("registeredUsers", JSON.stringify(users));
+      renderEvents(users[userIndex]);
+    }
+
+    function subscribeNow() {
+      const userEmail = (localStorage.getItem("userEmail") || "").toLowerCase();
+      const users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+      const userIndex = users.findIndex(u => u.email === userEmail);
+
+      if (userIndex !== -1) {
+        users[userIndex].subscribed = true;
+        localStorage.setItem("registeredUsers", JSON.stringify(users));
+        showToast("🎉 You are now a premium member!");
+        document.getElementById("premiumContent").style.display = "block";
+        document.getElementById("subscribeSection").style.display = "none";
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("userEmail");
+      window.location.href = "login.html";
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.className = "show";
+      setTimeout(() => (toast.className = toast.className.replace("show", "")), 3000);
+    }
+
+    function loadAnnouncements() {
+      const announcements = JSON.parse(localStorage.getItem("announcements") || "[]");
+      const list = document.getElementById("announcementFeed");
+      list.innerHTML = "";
+
+      if (announcements.length === 0) {
+        list.innerHTML = "<li>No announcements yet.</li>";
+        return;
+      }
+
+      announcements.reverse().forEach(announcement => {
+        const item = document.createElement("li");
+        item.innerHTML = `<strong>${announcement.date}:</strong> ${announcement.text}`;
+        list.appendChild(item);
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="./images/phoenix.jpg" alt="Phoenix Club Logo" />
+      <h1>Phoenix Club</h1>
+    </div>
+    <ul class="links">
+      <a href="#" onclick="logout()">Logout</a>
+    </ul>
+  </nav>
+
+  <section class="dashboard">
+    <h2>Welcome, <span id="userEmailDisplay"></span>!</h2>
+    <p>You're logged into the members-only dashboard. Stay updated below:</p>
+
+    <div class="card" id="subscribeSection">
+      <h3>💳 Become a Premium Member</h3>
+      <p>Unlock exclusive content and event perks. One click to elevate your experience!</p>
+      <button class="subscribe-btn" onclick="subscribeNow()">Subscribe Now</button>
+    </div>
+
+    <div class="premium-content" id="premiumContent" style="display: none;">
+      <h3>🌟 Premium Member Content</h3>
+      <p>Thanks for supporting us! Here's your exclusive premium area with early event access, invites to VIP meetups, and behind-the-scenes updates.</p>
+    </div>
+
+    <div class="card">
+      <h3>📅 Upcoming Events</h3>
+      <ul id="eventList"></ul>
+    </div>
+
+
+    <section class="card">
+      <h3>📢 Latest Announcements</h3>
+      <ul id="announcementFeed" class="event-list"></ul>
+    </section>
+
+    <div class="card">
+      <h3>🔗 Quick Links</h3>
+      <p>
+        <a href="gallery.html">Photo Gallery</a><br>
+        <a href="events.html">Event Updates</a><br>
+        <a href="mailto:info@phoenixrecreationalclub.com">Contact Admin</a>
+      </p>
+    </div>
+  </section>
+
+  <div id="toast"></div>
+
+  <footer class="footer">
+    <h3>Phoenix Club Members</h3>
+    <p>Email: info@phoenixrecreationalclub.com | Phone: (123) 456-7890</p>
+  </footer>
+  <div class="bottom">
+    &copy; 2025 Phoenix Recreational Club. All rights reserved.
+  </div>
+</body>
+</html>

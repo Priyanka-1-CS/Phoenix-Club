@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Club | Phoenix Club</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #fff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ae2114;
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      color: white;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .logo img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid white;
+      margin-right: 10px;
+    }
+
+    .navbar h1 {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .navbar .links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .navbar .links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      text-transform: uppercase;
+      transition: background-color 0.3s, color 0.3s;
+      padding: 6px 10px;
+      border-radius: 4px;
+    }
+
+    .navbar .links a:hover {
+      background-color: white;
+      color: #ff5747;
+    }
+
+    /* Banner Image */
+    .banner {
+      margin-top: 80px;
+    }
+
+    .banner img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 20px;
+    }
+
+    .title {
+      font-size: 2.2rem;
+      text-align: center;
+      color: #ff5747;
+      margin-bottom: 1.5rem;
+    }
+
+    .description {
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th,
+    td {
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #ff5747;
+      color: white;
+    }
+
+    td {
+      background-color: #fff8f6;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #ae2114;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    footer h2 {
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    footer p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .bottom-bar {
+      background-color: #3e0905;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar .links {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        width: 100%;
+      }
+
+      .banner img {
+        height: 220px;
+      }
+
+      .title {
+        font-size: 1.6rem;
+      }
+
+      th,
+      td {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="./images/phoenix.jpg" alt="Phoenix Club Logo">
+      <h1>Phoenix Club</h1>
+    </div>
+    <ul class="links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="registration.html">Registration</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="members-login.html">Members</a></li>
+    </ul>
+  </nav>
+
+  <!-- Banner -->
+  <div class="banner">
+    <img src="./images/gymback.jpg" alt="Health Club Banner">
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2 class="title">Health Club</h2>
+    <p class="description">
+      The Health Club provides a comprehensive environment for members to achieve their fitness goals. Featuring modern equipment and experienced trainers, it offers both morning and evening batches suitable for all levels.
+    </p>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Morning</td>
+            <td>8–9</td>
+            <td>7–8</td>
+            <td>9–10</td>
+            <td>8–9</td>
+            <td>9–10</td>
+            <td>8–9</td>
+          </tr>
+          <tr>
+            <td>Evening</td>
+            <td>8–9</td>
+            <td>7–8</td>
+            <td>9–10</td>
+            <td>8–9</td>
+            <td>9–10</td>
+            <td>8–9</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <h2>Contact Information</h2>
+    <p>
+      Address: 123 Main Street, Calcutta 700032, West Bengal <br />
+      Phone: (123) 456-7890 <br />
+      Email: info@phoenixrecreationalclub.com
+    </p>
+  </footer>
+
+  <div class="bottom-bar">
+    &copy; 2023 Phoenix Club. All rights reserved.
+  </div>
+
+</body>
+
+</html>

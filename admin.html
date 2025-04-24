@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Phoenix Club</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background-color: #ae2114;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      font-size: 1.2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 { margin: 0; }
+    .navbar .links a {
+      color: white;
+      text-decoration: none;
+      margin-left: 2rem;
+    }
+    .navbar .links a:hover { color: #ffd700; }
+
+    .dashboard {
+      margin-top: 120px;
+      padding: 2rem;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin: 20px 0;
+    }
+
+    .card h3 {
+      color: #ae2114;
+      margin-bottom: 1rem;
+    }
+
+    .event-list, .user-list, .announcement-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .event-list li, .user-list li, .announcement-list li {
+      margin: 8px 0;
+      padding: 12px;
+      background-color: #f1f1f1;
+      border-radius: 6px;
+    }
+
+    .event-list button, .user-list button {
+      background-color: #ae2114;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .event-list button:hover, .user-list button:hover {
+      background-color: #921b10;
+    }
+
+    input, textarea {
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    button.add-btn {
+      background-color: #ae2114;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    button.add-btn:hover {
+      background-color: #921b10;
+    }
+
+    .attendance-section ul {
+      padding-left: 1rem;
+    }
+
+    .attendance-section li {
+      background: #f9f9f9;
+      margin-bottom: 8px;
+      padding: 10px;
+      border-left: 4px solid #ae2114;
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+  </style>
+
+  <script>
+    window.onload = function () {
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      const userEmail = (localStorage.getItem("userEmail") || "").toLowerCase();
+
+      if (!isLoggedIn || userEmail !== "admin@phoenix.com") {
+        window.location.href = "login.html";
+        return;
+      }
+
+      document.getElementById("adminEmail").textContent = userEmail;
+
+      loadEvents();
+      loadUsers();
+      loadAnnouncements();
+      loadAttendance();
+    };
+
+    function loadEvents() {
+      const events = JSON.parse(localStorage.getItem("events") || "[]");
+      const eventList = document.getElementById("eventList");
+      eventList.innerHTML = "";
+
+      events.forEach(event => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+          <strong>${event.name}</strong> - ${event.date}
+          <button onclick="deleteEvent('${event.id}')">Delete</button>
+        `;
+        eventList.appendChild(listItem);
+      });
+    }
+
+    function loadUsers() {
+      const users = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+      const userList = document.getElementById("userList");
+      userList.innerHTML = "";
+
+      users.forEach(user => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+          <strong>${user.email}</strong>
+          ${user.subscribed ? "<span style='color: green;'> (Premium Member)</span>" : ""}
+          <button onclick="toggleSubscription('${user.email}')">
+            ${user.subscribed ? "Unsubscribe" : "Subscribe"}
+          </button>
+        `;
+        userList.appendChild(listItem);
+      });
+    }
+
+    function loadAttendance() {
+      const events = JSON.parse(localStorage.getItem("events") || "[]");
+      const users = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+      const section = document.getElementById("attendanceList");
+      section.innerHTML = "";
+
+      events.forEach(event => {
+        const attendees = users
+          .filter(user => user.registeredEvents && user.registeredEvents.includes(event.id))
+          .map(user => user.email);
+
+        const item = document.createElement("li");
+        item.innerHTML = `
+          <strong>${event.name} (${event.date})</strong><br>
+          <em>Attendees:</em><br>
+          ${attendees.length > 0 ? attendees.map(email => `• ${email}`).join("<br>") : "<span style='color: gray;'>No attendees</span>"}
+        `;
+        section.appendChild(item);
+      });
+    }
+
+    function deleteEvent(eventId) {
+      const events = JSON.parse(localStorage.getItem("events") || "[]");
+      const updatedEvents = events.filter(event => event.id !== eventId);
+      localStorage.setItem("events", JSON.stringify(updatedEvents));
+      loadEvents();
+      loadAttendance();
+    }
+
+    function toggleSubscription(userEmail) {
+      const users = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+      const user = users.find(u => u.email === userEmail);
+
+      if (user) {
+        user.subscribed = !user.subscribed;
+        localStorage.setItem("registeredUsers", JSON.stringify(users));
+        loadUsers();
+      }
+    }
+
+    function addEvent() {
+      const name = document.getElementById("newEventName").value.trim();
+      const date = document.getElementById("newEventDate").value;
+
+      if (!name || !date) {
+        alert("Please enter both event name and date.");
+        return;
+      }
+
+      const events = JSON.parse(localStorage.getItem("events") || "[]");
+      const newEvent = {
+        id: name.toLowerCase().replace(/\s+/g, "_"),
+        name: name,
+        date: date
+      };
+
+      events.push(newEvent);
+      localStorage.setItem("events", JSON.stringify(events));
+      document.getElementById("newEventName").value = "";
+      document.getElementById("newEventDate").value = "";
+      loadEvents();
+      loadAttendance();
+    }
+
+    function addAnnouncement() {
+      const message = document.getElementById("announcementText").value.trim();
+      if (!message) {
+        alert("Please enter an announcement message.");
+        return;
+      }
+
+      const announcements = JSON.parse(localStorage.getItem("announcements") || "[]");
+      announcements.push({ text: message, date: new Date().toLocaleString() });
+      localStorage.setItem("announcements", JSON.stringify(announcements));
+      document.getElementById("announcementText").value = "";
+      loadAnnouncements();
+    }
+
+    function loadAnnouncements() {
+      const announcements = JSON.parse(localStorage.getItem("announcements") || "[]");
+      const list = document.getElementById("announcementList");
+      list.innerHTML = "";
+
+      announcements.reverse().forEach(announcement => {
+        const item = document.createElement("li");
+        item.innerHTML = `<strong>${announcement.date}:</strong> ${announcement.text}`;
+        list.appendChild(item);
+      });
+    }
+
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("userEmail");
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <h1>Phoenix Club Admin</h1>
+    <div class="links">
+      <a href="#" onclick="logout()">Logout</a>
+    </div>
+  </nav>
+
+  <section class="dashboard">
+    <h2>Admin Dashboard - <span id="adminEmail"></span></h2>
+
+    <div class="card">
+      <h3>📅 Manage Events</h3>
+      <ul class="event-list" id="eventList"></ul>
+    </div>
+
+    <div class="card">
+      <h3>➕ Add New Event</h3>
+      <input type="text" id="newEventName" placeholder="Event Name" />
+      <input type="date" id="newEventDate" />
+      <button class="add-btn" onclick="addEvent()">Add Event</button>
+    </div>
+
+    <div class="card">
+      <h3>👥 Manage Users</h3>
+      <ul class="user-list" id="userList"></ul>
+    </div>
+
+    <div class="card">
+      <h3>📢 Add Announcement</h3>
+      <textarea id="announcementText" rows="4" placeholder="Write an announcement..."></textarea>
+      <button class="add-btn" onclick="addAnnouncement()">Post Announcement</button>
+    </div>
+
+    <div class="card">
+      <h3>📰 Recent Announcements</h3>
+      <ul id="announcementList" class="announcement-list"></ul>
+    </div>
+
+    <div class="card attendance-section">
+      <h3>📋 Event Attendance</h3>
+      <ul id="attendanceList" class="event-list"></ul>
+    </div>
+  </section>
+</body>
+</html>

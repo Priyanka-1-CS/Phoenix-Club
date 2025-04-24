@@ -1,0 +1,252 @@
+/* ===========================================
+   Global Resets and Base Typography
+=========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+  }
+  
+  /* ===========================================
+     Navbar Styles (Used Across All Pages)
+  =========================================== */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ae2114;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+  }
+  
+  .navbar .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar .logo img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 3px solid rgb(236, 200, 20);
+    margin-right: 10px;
+  }
+  
+  .navbar h1 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: rgb(236, 200, 20);
+  }
+  
+  .navbar .links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .navbar .links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+    text-transform: uppercase;
+  }
+  
+  .navbar .links a:hover {
+    background-color: white;
+    color: #ff5747;
+    padding: 6px 12px;
+    border-radius: 6px;
+  }
+  
+  /* ===========================================
+     Footer Styles (Used Across All Pages)
+  =========================================== */
+  .footer {
+    display: flexbox;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #ae2114;
+    color: white;
+    padding: 1rem;
+    margin-top: 4rem;
+    text-align: center;
+  }
+  
+  .bottom {
+    background-color: #3e0905;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .footercontent h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+  
+  .footercontent p {
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  
+  /* ===========================================
+     Registration Page Styles
+  =========================================== */
+  form {
+    margin-top: 100px;
+  }
+  
+  .container {
+    padding: 16px;
+    text-align: center;
+    background-color: white;
+    margin-top: 30px;
+  }
+  
+  input[type=text],
+  input[type=password],
+  input[type=email],
+  input[type=number],
+  input[type=date],
+  textarea,
+  select {
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  input:focus,
+  textarea:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  .registerbtn {
+    background-color: #FFD700;
+    color: black;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    opacity: 0.9;
+  }
+  
+  .registerbtn:hover {
+    opacity: 1;
+  }
+  
+  label {
+    font-size: 18px;
+    font-weight: 900;
+    text-align: left;
+  }
+  
+  a {
+    color: dodgerblue;
+    text-decoration: none;
+  }
+  
+  /* ===========================================
+     Login Page Styles
+  =========================================== */
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f1b5;
+  }
+  
+  .login-form {
+    background-color: #ac2d2d;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    color: #ffffff;
+  }
+  
+  .login-form h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .login-form input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #333;
+  }
+  
+  .login-form input[type="submit"] {
+    background-color: #ff5747;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .login-form input[type="submit"]:hover {
+    background-color: #ae2114;
+  }
+  
+  .login-form p {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  .login-form a {
+    color: #ffd700;
+    text-decoration: none;
+  }
+  
+  .login-form a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ===========================================
+     Responsive Fixes (Optional)
+  =========================================== */
+  @media (max-width: 768px) {
+    .navbar .links {
+      flex-direction: column;
+      gap: 10px;
+      background-color: #ff5747;
+      padding: 1rem;
+    }
+  
+    .footer {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  
+    .registerbtn,
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 90%;
+    }
+  }
+  
