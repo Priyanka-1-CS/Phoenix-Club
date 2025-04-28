@@ -3,30 +3,36 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>COURSES OFFERED - Health Club</title>
+  <title>Health Club | Phoenix Club</title>
   <style>
     * {
-      box-sizing: border-box;
-      padding: 0;
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      background-color: #ffffff;
       font-family: 'Courier New', Courier, monospace;
-      font-size: 2.5vmin;
+      background-color: #fff;
+      color: #333;
+      line-height: 1.6;
     }
 
-    /* ---------------- HEADER ---------------- */
+    /* Navbar Styles */
     .navbar {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      background-color: rgb(255, 88, 71);
+      align-items: center;
+      background-color: #ae2114;
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
       color: white;
-      padding: 15px 40px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     .navbar .logo {
@@ -34,221 +40,244 @@
       align-items: center;
     }
 
-    .logo img {
-      width: 70px;
-      height: 70px;
+    .navbar .logo img {
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      border: 3px solid white;
-      margin-right: 15px;
+      border: 2px solid white;
+      margin-right: 10px;
     }
 
     .navbar h1 {
-      font-size: 2.5rem;
-      letter-spacing: 1px;
+      font-size: 1.5rem;
+      font-weight: bold;
     }
 
-    .navbar ul.links {
-      display: flex;
+    .navbar .links {
       list-style: none;
-      gap: 20px;
+      display: flex;
+      gap: 1rem;
     }
 
-    .navbar ul.links li a {
+    .navbar .links a {
       color: white;
       text-decoration: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      transition: background-color 0.3s, color 0.3s;
+      padding: 6px 10px;
+      border-radius: 4px;
     }
 
-    .navbar ul.links li a:hover {
+    .navbar .links a:hover {
       background-color: white;
-      color: rgb(255, 88, 71);
+      color: #ff5747;
     }
 
-    /* ---------------- CONTENT ---------------- */
-    .background img {
+    /* Banner Image */
+    .banner {
+      margin-top: 80px;
+    }
+
+    .banner img {
       width: 100%;
-      height: auto;
+      height: 400px;
+      object-fit: cover;
     }
 
-    .health {
-      text-align: center;
+    /* Main Content */
+    .container {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 20px;
+    }
+
+    .title {
       font-size: 2.2rem;
-      margin: 30px 0;
-    }
-
-    .htable {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      padding: 0 50px;
-      flex-wrap: wrap;
-    }
-
-    .htable li {
-      list-style: none;
-      flex: 1 1 400px;
-    }
-
-    .htable p {
-      font-size: 1rem;
-      padding: 10px;
-      text-align: justify;
-    }
-
-    .table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-bottom: 20px;
-      margin-top: 20px;
-    }
-
-    .table th,
-    .table td {
-      border: 1px solid #ddd;
-      padding: 10px 15px;
       text-align: center;
+      color: #8f267e;
+      margin-bottom: 1.5rem;
     }
 
-    .table th {
-      background-color: #f4f4f4;
+    .description {
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
+      text-align: center;
+      font-size: 1.1rem;
     }
 
-    /* ---------------- FOOTER ---------------- */
-    .bottom {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      background-color: rgb(255, 88, 71);
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th,
+    td {
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #8f267e;
       color: white;
-      padding: 30px 50px;
     }
 
-    .footerleft {
-      flex: 1 1 300px;
-      font-size: 0.9rem;
+    td {
+      background-color: #fff8f6;
     }
 
-    .footerright {
-      flex: 1 1 300px;
-      font-size: 0.9rem;
+    /* Footer */
+    footer {
+      background-color: #ae2114;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      margin-top: 4rem;
     }
 
-    .footerright h2 {
-      margin-bottom: 10px;
-      font-size: 1.2rem;
+    footer h2 {
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
     }
 
-    .footerright p {
+    footer p {
+      font-size: 1rem;
       line-height: 1.6;
     }
 
-    @media screen and (max-width: 768px) {
+    .bottom-bar {
+      background-color: #3e0905;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
       .navbar {
         flex-direction: column;
-        gap: 10px;
+        align-items: flex-start;
       }
 
-      .navbar ul.links {
+      .navbar .links {
         flex-direction: column;
-        gap: 10px;
-        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        width: 100%;
       }
 
-      .htable {
-        flex-direction: column;
+      .banner img {
+        height: 220px;
       }
 
-      .bottom {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
+      .title {
+        font-size: 1.6rem;
+      }
+
+      th,
+      td {
+        padding: 0.7rem;
+        font-size: 0.9rem;
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- HEADER -->
+
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="logo">
       <img src="./images/phoenix.jpg" alt="Phoenix Club Logo">
       <h1>Phoenix Club</h1>
     </div>
-
     <ul class="links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="courses.html">Courses Offered</a></li>
+      <li><a href="registration.html">Registration</a></li>
+      <li><a href="courses.html">Courses</a></li>
       <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="login.html">Members</a></li>
-      <li><a href="Registration.html">Registration</a></li>
+      <li><a href="members-login.html">Members</a></li>
     </ul>
   </nav>
 
-  <!-- HERO / BACKGROUND IMAGE -->
-  <div class="background">
-    <img src="./images/swimbackground.jpg" alt="Health Club Image">
+  <!-- Banner -->
+  <div class="banner">
+    <img src="./images/swimbackground.jpg" alt="Health Club Banner">
   </div>
 
-  
-  <!-- COURSE DETAILS -->
-  <h1 class="health">Swimming Pool</h1>
-  <ul class="htable">
-    <li>
-      <p>
-        The Health Club provides a comprehensive environment for members to achieve their fitness goals. Featuring
-        modern equipment and experienced trainers, it offers both morning and evening batches suitable for all levels.
-      </p>
-    </li>
-    <li>
-      <table class="table">
-        <tr>
-          <th></th>
-          <th>Mon</th>
-          <th>Tue</th>
-          <th>Wed</th>
-          <th>Thu</th>
-          <th>Fri</th>
-          <th>Sat</th>
-        </tr>
-        <tr>
-          <td>Morning</td>
-          <td>8-9</td>
-          <td>7-8</td>
-          <td>9-10</td>
-          <td>8-9</td>
-          <td>9-10</td>
-          <td>8-9</td>
-        </tr>
-        <tr>
-          <td>Evening</td>
-          <td>8-9</td>
-          <td>7-8</td>
-          <td>9-10</td>
-          <td>8-9</td>
-          <td>9-10</td>
-          <td>8-9</td>
-        </tr>
-      </table>
-    </li>
-  </ul>
+  <!-- Main Content -->
+  <div class="container">
+    <h2 class="title">Swimming Pool</h2>
+    <p class="description">
+        Our luxurious pool offers space for relaxation and training, suitable for all ages.
+        <br>(Contact Club office For Enquiry)
+    </p>
 
-  <!-- FOOTER -->
-  <footer class="bottom">
-    <div class="footerleft">
-      <p>&copy; 2023 Phoenix Club. All Rights Reserved.</p>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Morning</td>
+            <td>8–9</td>
+            <td>7–8</td>
+            <td>9–10</td>
+            <td>8–9</td>
+            <td>9–10</td>
+            <td>8–9</td>
+          </tr>
+          <tr>
+            <td>Evening</td>
+            <td>8–9</td>
+            <td>7–8</td>
+            <td>9–10</td>
+            <td>8–9</td>
+            <td>9–10</td>
+            <td>8–9</td>
+          </tr>
+          <tr>
+            <td>Fee</td>
+            <td colspan="3">₹4000 (For Members)</td>
+            <td colspan="3">₹7000 (For Non-Members)</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="footerright">
-      <h2>Contact Information</h2>
-      <p>
-        Address: 123 Main Street, Calcutta 700032, West Bengal <br />
-        Phone: (123) 456-7890<br />
-        Email: info@phoenixrecreationalclub.com
-      </p>
-    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <h2>Contact Information</h2>
+    <p>
+      Address: 123 Main Street, Calcutta 700032, West Bengal <br />
+      Phone: (123) 456-7890 <br />
+      Email: info@phoenixrecreationalclub.com
+    </p>
   </footer>
+
+  <div class="bottom-bar">
+    &copy; 2023 Phoenix Club. All rights reserved.
+  </div>
+
 </body>
 
 </html>
